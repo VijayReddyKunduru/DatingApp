@@ -1,3 +1,7 @@
+using System.Runtime.Serialization;
+using System.Net.Security;
+using System.Xml.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Net.Mime;
 using System;
 using System.Collections.Generic;
@@ -15,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using API.Entities;
 using API.Data;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 
 namespace API
@@ -44,6 +49,7 @@ namespace API
                 options.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -63,6 +69,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
