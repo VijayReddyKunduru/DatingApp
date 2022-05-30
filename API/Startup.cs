@@ -1,3 +1,4 @@
+using System.Text;
 using System.Runtime.Serialization;
 using System.Net.Security;
 using System.Xml.Linq;
@@ -19,7 +20,13 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using API.Entities;
 using API.Data;
+using API.Extensions;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using API.Interfaces;
+using API.Services;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 
 namespace API
@@ -44,12 +51,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options =>
-            {
-                options.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
-            });
+           
+            services.AddApplicationServices(_configuration);
             services.AddControllers();
             services.AddCors();
+            services.AddIdentityServices(_configuration);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -72,6 +78,7 @@ namespace API
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -79,5 +86,9 @@ namespace API
                 endpoints.MapControllers();
             });
         }
+    }
+
+    internal class TokenServices
+    {
     }
 }
