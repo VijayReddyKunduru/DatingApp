@@ -2,6 +2,7 @@
     "omnisharp.projectLoadTimeout": 600,
     "cSpell.words": [
         "hmac",
-        "HMACSHA"
+        "HMACSHA",
+        "Toastr"
     ]
 }
