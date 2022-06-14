@@ -1,6 +1,7 @@
 {
     "omnisharp.projectLoadTimeout": 600,
     "cSpell.words": [
+        "Cloudinary",
         "hmac",
         "HMACSHA",
         "Toastr"
