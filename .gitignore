@@ -11,6 +11,10 @@ ssl
 *.user
 *.userosscache
 *.sln.docstates
+*/.angular/cache
+settings.json
+client/.angular/cache
+/node_modules
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

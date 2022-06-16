@@ -4,6 +4,7 @@
         "Cloudinary",
         "hmac",
         "HMACSHA",
+        "Timeago",
         "Toastr"
     ]
 }
